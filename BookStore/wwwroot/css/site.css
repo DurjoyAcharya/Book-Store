@@ -6,6 +6,7 @@ body {
     padding-top: 3rem;
     padding-bottom: 3rem;
     color: #5a5a5a;
+    --font-mukta: "Mukta", sans-serif;
 }
 
 
@@ -68,7 +69,26 @@ body {
     /* rtl:remove */
     letter-spacing: -.05rem;
 }
+/* Pagination links */
+.pagination{
+    display: flex;
+    justify-content: right;
+}
+.pagination a {
+    color: black;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
 
+/* Style the active/current link */
+.pagination a.active {
+    background-color: rgb(169, 30, 255);
+    color: white;
+}
+
+/* Add a grey background color on mouse-over */
+.pagination a:hover:not(.active) {background-color: #dddd;}
 
 /* RESPONSIVE CSS
 -------------------------------------------------- */
@@ -84,6 +104,33 @@ body {
     .featurette-heading {
         font-size: 50px;
     }
+}
+.movies {
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
+    /* background-color: red; */
+    font-family: var(--font-mukta);
+}
+.movie-card {
+    padding: 2%;
+    margin: 2%;
+    /*flex-basis: 16%;*/
+    width: 16%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    cursor: pointer;
+    /* background-color: yellow; */
+}
+
+.movie-card:hover {
+    cursor: pointer;
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 18px 30px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+}
+.movie-image img {
+    width: 100%;
 }
 
 @media (min-width: 62em) {
