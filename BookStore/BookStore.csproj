@@ -17,7 +17,6 @@
       <Folder Include="images\" />
       <Folder Include="Repository\" />
       <Folder Include="Service\" />
-      <Folder Include="wwwroot\css\" />
     </ItemGroup>
 
     <ItemGroup>
