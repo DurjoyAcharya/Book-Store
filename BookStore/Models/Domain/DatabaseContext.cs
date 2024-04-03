@@ -4,5 +4,5 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BookStore.Models.Domain;
 
-public class DatabaseContext(DbContextOptions<DatabaseContext> options) : 
-    IdentityDbContext<ApplicationUsers>(options);
+public class DatabaseContext(DbContextOptions<DatabaseContext> mssql) : 
+    IdentityDbContext<ApplicationUsers>(mssql);
