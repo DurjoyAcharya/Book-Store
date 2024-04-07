@@ -31,9 +31,9 @@ public class UserAuthenticationService:IUserAuthenticationService
 
     public async Task<Status> RegistrationAsync(Registration loginModel)
     {
+        var status = new Status(0,"Failed");
         if (loginModel.Email != null)
         {
-            var status = new Status(0,"");
             var userExists = await UserManager.FindByNameAsync(loginModel.Email);
             if (userExists!=null)
             {
@@ -51,7 +51,26 @@ public class UserAuthenticationService:IUserAuthenticationService
                 EmailConfirmed = true,
                 PhoneNumberConfirmed = true
             };
-            var result=await UserManager.CreateAsync()
+            if (loginModel.Password != null)
+            {
+                var result = await UserManager.CreateAsync(users, loginModel.Password);
+                if (!result.Succeeded)
+                {
+                    status = status with { StatusCode = 0 };
+                    status = status with { Notify = "User Creation Failed" };
+                    return status;
+                }
+            }
+
+            if (loginModel.Role != null && ! await RoleManager.RoleExistsAsync(loginModel.Role))
+            {
+                await RoleManager.CreateAsync(new IdentityRole(loginModel.Role));
+            }
+
+            status = status with { StatusCode = 1 };
+            status = status with { Notify = "User Create Successfully" };
         }
+
+        return status;
     }
 }
