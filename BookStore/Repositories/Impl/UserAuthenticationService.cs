@@ -39,8 +39,8 @@ public class UserAuthenticationService:IUserAuthenticationService
                 status = status with { Notify = "Invalid Password" };
                 return status;
             }
-            var SignInResult = await SignInManager.PasswordSignInAsync(user, loginModel.Password, false, true);
-            if (SignInResult.Succeeded)
+            var signInResult = await SignInManager.PasswordSignInAsync(user, loginModel.Password, false, true);
+            if (signInResult.Succeeded)
             {
                 var userRoles = await UserManager.GetRolesAsync(user);
                 var authClaims = new List<Claim>
@@ -54,7 +54,7 @@ public class UserAuthenticationService:IUserAuthenticationService
 
                 status = status with { StatusCode = 1 };
                 status = status with { Notify = "Login Successfully" };
-            }else if (SignInResult.IsLockedOut)   
+            }else if (signInResult.IsLockedOut)   
             {
                 status = status with { StatusCode = 0 };
                 status = status with { Notify = "Login LockOut" };
@@ -69,9 +69,9 @@ public class UserAuthenticationService:IUserAuthenticationService
         return status;
     }
 
-    public Task LogOutAsync()
+    public async Task LogOutAsync()
     {
-        throw new NotImplementedException();
+       await SignInManager.SignOutAsync();
     }
 
     public async Task<Status> RegistrationAsync(Registration loginModel)
